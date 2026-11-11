@@ -304,10 +304,13 @@ function renderDashboard() {
   $('#today-label').textContent = new Date().toLocaleDateString('en-PH', {
     weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
   }).toUpperCase();
-  const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'morning' : hour < 18 ? 'afternoon' : 'evening';
-  const firstName = currentUserName.trim().split(/\s+/)[0] || 'there';
-  $('#greeting').textContent = `Good ${greeting}, ${firstName}`;
+const hour = new Date().getHours();
+  const timeOfDay = hour < 12 ? 'morning' : hour < 18 ? 'afternoon' : 'evening';
+  const displayName = currentRole === 'resident'
+    ? (currentUserName.trim().split(/\s+/)[0] || 'there')
+    : 'Lucao';
+
+  $('#greeting').textContent = `Good ${timeOfDay}, ${displayName}`;
 }
 
 function renderResidentNotifications() {
