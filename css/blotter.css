@@ -1,0 +1,41 @@
+#view-blotter .toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+#view-blotter .filter-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+#view-blotter .filter-control select {
+  min-width: 140px;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+#blotter-table td strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+@media (max-width: 520px) {
+  #view-blotter .filter-control {
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  #view-blotter .filter-control select {
+    min-width: 0;
+  }
+}

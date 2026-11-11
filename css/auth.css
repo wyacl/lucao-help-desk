@@ -1,0 +1,149 @@
+.login-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--surface-subtle, #f4f7f5);
+  overflow: hidden;
+}
+
+/* Half of the seal peeking in from the left edge */
+.login-page::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: min(900px, 95vw);
+  height: min(900px, 95vw);
+  background: url('../lucao.jpg') no-repeat center center / contain;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.login-card {
+  position: relative;
+  z-index: 1;
+}
+
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 0 24px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* Fixes "Barangay Lucao" inheriting white text from layout.css */
+.login-brand strong {
+  display: block;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.login-brand small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Container for lucao.jpg */
+.login-brand .brand-mark {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.brand-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 50%;
+}
+
+.login-card > .eyebrow {
+  color: var(--green);
+}
+
+.login-card h1 {
+  margin-top: 7px;
+  font-size: 25px;
+}
+
+.login-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.login-form .field input {
+  min-height: 44px;
+}
+
+.login-submit {
+  width: 100%;
+  min-height: 43px;
+}
+
+.demo-accounts {
+  margin-top: 22px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #f8faf8;
+}
+
+.demo-accounts > strong {
+  font-size: 12px;
+}
+
+.demo-accounts p {
+  margin: 8px 0 0;
+  color: #536258;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.demo-accounts code {
+  color: var(--green);
+  font-size: 10px;
+}
+
+.demo-accounts small {
+  display: block;
+  margin-top: 11px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+/* Two-column split row for Zone / Purok and House Number */
+.registration-split-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 520px) {
+  .login-card {
+    padding: 22px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-split-row {
+    grid-template-columns: 1fr;
+  }
+}

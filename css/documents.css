@@ -1,0 +1,163 @@
+#view-documents .filter-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+#view-documents .filter-control select {
+  min-width: 140px;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+#document-table td strong {
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: .02em;
+}
+
+.small-action.disabled,
+.small-action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Valid ID File Upload Cards */
+.id-upload-section {
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.id-upload-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.id-upload-header span {
+  font-size: 11px;
+  font-weight: 600;
+  color: #55655b;
+}
+
+.id-upload-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.id-upload-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.id-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 12px;
+  border: 1.5px dashed #c0d1c7;
+  border-radius: 10px;
+  background: #fbfdfc;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.id-upload-label:hover {
+  border-color: var(--green);
+  background: var(--green-soft);
+}
+
+.id-upload-label i {
+  font-size: 24px;
+  color: var(--green);
+  margin-bottom: 6px;
+}
+
+.id-upload-label strong {
+  font-size: 12.5px;
+  color: var(--ink);
+}
+
+.id-upload-label small {
+  margin-top: 3px;
+  font-size: 11px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.id-preview-btn {
+  width: 100%;
+  min-height: 33px;
+  font-size: 11.5px;
+  gap: 6px;
+}
+
+/* ID Image Viewer Modal */
+.id-viewer-modal {
+  width: min(650px, calc(100vw - 32px));
+  max-height: min(92vh, 800px);
+}
+
+.id-viewer-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.id-viewer-nav .button.active {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+}
+
+.id-viewer-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  max-height: 55vh;
+  overflow: auto;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f8faf8;
+}
+
+.id-viewer-image {
+  max-width: 100%;
+  max-height: 52vh;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 520px) {
+  #view-documents .filter-control {
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  #view-documents .filter-control select {
+    min-width: 0;
+  }
+
+  .id-upload-grid {
+    grid-template-columns: 1fr;
+  }
+}

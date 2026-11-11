@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#153d2b">
+  <title>Barangay Lucao Help Desk</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="lucao.jpg">
+  <link rel="shortcut icon" href="lucao.jpg">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+  <!-- Modular Section Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/overview.css">
+  <link rel="stylesheet" href="css/residents.css">
+  <link rel="stylesheet" href="css/documents.css">
+  <link rel="stylesheet" href="css/blotter.css">
+  <link rel="stylesheet" href="css/announcements.css">
+  <link rel="stylesheet" href="css/inventory.css">
+  <link rel="stylesheet" href="css/lookup.css">
+
+  <script src="js/core.js" defer></script>
+  <script src="js/residents.js" defer></script>
+  <script src="js/documents.js" defer></script>
+  <script src="js/complaints.js" defer></script>
+  <script src="js/announcements.js" defer></script>
+  <script src="js/inventory.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <main class="login-page" id="login-page">
+    <section class="login-card" aria-labelledby="login-title">
+      <a class="brand login-brand" href="#login" aria-label="Barangay Lucao Help Desk">
+        <span class="brand-mark login-brand-mark" aria-hidden="true">
+          <img src="lucao.jpg" alt="Barangay Lucao Logo" class="brand-logo-img">
+        </span>
+        <span><strong>Barangay Lucao</strong><small>Help Desk</small></span>
+      </a>
+      <p class="eyebrow">ONE FOR ALL</p>
+      <h1 id="login-title">Sign in to your account</h1>
+      <p class="muted" id="login-description">Use your staff, barangay official, or resident account to access the help desk.</p>
+
+      <form id="login-form" class="login-form" novalidate>
+        <label class="field">
+          <span>Email address</span>
+          <input id="login-email" 
+                 type="email" 
+                 autocomplete="email" 
+                 placeholder="Enter your email" 
+                 required>
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input id="login-password" 
+                 type="password" 
+                 autocomplete="current-password" 
+                 placeholder="Enter your password" 
+                 required>
+        </label>
+        <p class="form-error" id="login-error" role="alert"></p>
+        <button class="button login-submit" type="submit">Sign in</button>
+        <button class="text-button login-toggle" id="show-registration" type="button">Not registered yet? Create an account</button>
+      </form>
+
+      <form id="registration-form" class="login-form hidden" novalidate>
+        <label class="field"><span>Full name</span><input id="registration-name" autocomplete="name" maxlength="100" placeholder="e.g. Juan P. Dela Cruz" required></label>
+        <label class="field"><span>Birthdate</span><input id="registration-birthdate" type="date" required></label>
+        <label class="field"><span>Civil status</span>
+          <select id="registration-civil" required>
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Widowed">Widowed</option>
+            <option value="Separated">Separated</option>
+          </select>
+        </label>
+        
+        <div class="registration-split-row">
+          <label class="field"><span>Zone / Purok</span><input id="registration-purok" maxlength="60" placeholder="e.g. Purok 1 / Zone 1" required></label>
+          <label class="field"><span>House Number</span><input id="registration-household" maxlength="40" placeholder="e.g. H-001" required></label>
+        </div>
+
+        <label class="field"><span>Contact number</span><input id="registration-contact" type="tel" maxlength="16" placeholder="+63 912 345 6789" value="+63 " required></label>
+        <label class="field"><span>Email address</span><input id="registration-email" type="email" autocomplete="email" placeholder="name@example.com" required></label>
+        <label class="field"><span>Password</span><input id="registration-password" type="password" autocomplete="new-password" minlength="8" required></label>
+        <label class="field"><span>Confirm password</span><input id="registration-confirm-password" type="password" autocomplete="new-password" minlength="8" required></label>
+        <p class="form-error" id="registration-error" role="alert"></p>
+        <button class="button login-submit" type="submit">Create resident account</button>
+        <button class="text-button login-toggle" id="show-login" type="button">Already registered? Sign in</button>
+      </form>
+    </section>
+  </main>
+
+  <div class="app-shell hidden" id="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="Lucao Help Desk home">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="lucao.jpg" alt="Barangay Lucao Logo" class="brand-logo-img">
+        </span>
+        <span><strong>Barangay Lucao</strong><small>Help Desk</small></span>
+      </a>
+      <nav class="navigation" id="navigation" aria-label="Main navigation">
+        <button class="nav-link active" type="button" data-view="dashboard"><span class="nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</button>
+        <button class="nav-link" type="button" data-view="residents"><span class="nav-icon"><i class="fa-solid fa-users"></i></span>Residents</button>
+        <button class="nav-link" type="button" data-view="documents"><span class="nav-icon"><i class="fa-solid fa-file-lines"></i></span>Document requests <span class="nav-count" id="pending-count"></span></button>
+        <button class="nav-link" type="button" data-view="blotter"><span class="nav-icon"><i class="fa-solid fa-scale-balanced"></i></span>Complaints &amp; blotter</button>
+        <button class="nav-link" type="button" data-view="announcements"><span class="nav-icon"><i class="fa-solid fa-bullhorn"></i></span>Announcements</button>
+        <button class="nav-link" type="button" data-view="inventory"><span class="nav-icon"><i class="fa-solid fa-boxes-stacked"></i></span>Resources <span class="nav-count" id="low-count"></span></button>
+        <button class="nav-link" type="button" data-view="lookup"><span class="nav-icon"><i class="fa-solid fa-magnifying-glass"></i></span>Reference lookup</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="button button-sidebar-signout" id="logout-button" type="button">
+          <i class="fa-solid fa-right-from-bracket"></i> Sign out
+        </button>
+        <div class="storage-note"><span class="storage-dot"></span><span><strong>Local-only storage</strong><small>Your records stay in this browser.</small></span></div>
+        <div class="sidebar-actions"><button class="button button-quiet button-small" id="backup-button" type="button">Back up</button><button class="button button-quiet button-small" id="restore-button" type="button">Restore</button></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menu-button" type="button" aria-label="Toggle navigation menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="breadcrumb"><span>Barangay Lucao</span><strong id="current-page">Dashboard</strong></div>
+        <div class="account-control">
+          <span id="account-identity"></span>
+          <div class="notification-wrap">
+            <button class="icon-button notification-button hidden" id="notification-button" type="button" aria-label="Notifications" aria-expanded="false" aria-controls="resident-notifications">
+              <i class="fa-solid fa-bell"></i><span class="notification-count hidden" id="notification-count"></span>
+            </button>
+            <div class="notification-panel hidden" id="resident-notifications" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+      </header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="page-heading"><div><p class="eyebrow" id="today-label"></p><h1 id="greeting">Community dashboard</h1><p class="muted">A clear view of community services and records.</p></div><button class="button" type="button" data-action="quick-request"><i class="fa-solid fa-plus"></i> New request</button></div>
+        <div class="metrics" id="metrics"></div>
+        <div class="dashboard-grid">
+          <article class="panel panel-wide"><div class="panel-heading"><div><h2>Recent document requests</h2><p>Latest activity from the service desk</p></div><button class="text-button" type="button" data-navigate="documents">View all <i class="fa-solid fa-arrow-right"></i></button></div><div class="table-wrap" id="recent-documents"></div></article>
+          <article class="panel"><div class="panel-heading"><div><h2>Quick actions</h2><p>Common tasks</p></div></div><div class="quick-actions">
+            <button type="button" data-action="quick-resident"><span><i class="fa-solid fa-user-plus"></i></span><span><strong>Add resident</strong><small>Create a registry profile</small></span><b><i class="fa-solid fa-chevron-right"></i></b></button>
+            <button type="button" data-action="quick-complaint"><span><i class="fa-solid fa-triangle-exclamation"></i></span><span><strong>Log a complaint</strong><small>Record an incident</small></span><b><i class="fa-solid fa-chevron-right"></i></b></button>
+            <button type="button" data-action="quick-announcement"><span><i class="fa-solid fa-bullhorn"></i></span><span><strong>Post announcement</strong><small>Share a community notice</small></span><b><i class="fa-solid fa-chevron-right"></i></b></button>
+            <button type="button" data-action="quick-lookup"><span><i class="fa-solid fa-magnifying-glass"></i></span><span><strong>Track a reference</strong><small>Check request progress</small></span><b><i class="fa-solid fa-chevron-right"></i></b></button>
+          </div></article>
+          <article class="panel"><div class="panel-heading"><div><h2>Latest announcements</h2><p>Community updates</p></div><button class="text-button" type="button" data-navigate="announcements">View all <i class="fa-solid fa-arrow-right"></i></button></div><div id="recent-announcements"></div></article>
+          <article class="panel" id="resource-snapshot-panel"><div class="panel-heading"><div><h2>Resource snapshot</h2><p>Stock on hand</p></div><button class="text-button" id="manage-inventory-btn" type="button" data-navigate="inventory">Manage <i class="fa-solid fa-arrow-right"></i></button></div><div id="resource-snapshot"></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-residents">
+        <div class="page-heading"><div><p class="eyebrow">COMMUNITY REGISTRY</p><h1>Residents</h1><p class="muted">Manage resident profiles and house numbers.</p></div><button class="button" type="button" data-action="quick-resident"><i class="fa-solid fa-plus"></i> Add resident</button></div>
+        <article class="panel"><div class="toolbar"><label class="search-field"><span><i class="fa-solid fa-magnifying-glass"></i></span><input id="resident-search" type="search" placeholder="Search name, house number, or address"></label><label class="check-control"><input id="show-archived" type="checkbox"> Show archived</label></div><div class="table-wrap" id="resident-table"></div></article>
+      </section>
+
+      <section class="view" id="view-documents">
+        <div class="page-heading"><div><p class="eyebrow">PUBLIC SERVICES</p><h1>Document requests</h1><p class="muted">File requests and follow each one through to release.</p></div><button class="button" type="button" data-action="quick-request"><i class="fa-solid fa-plus"></i> File request</button></div>
+        <article class="panel"><div class="toolbar"><label class="filter-control"><span>Status</span><select id="document-filter"><option value="">All statuses</option><option>Pending</option><option>Approved</option><option>Released</option></select></label></div><div class="table-wrap" id="document-table"></div></article>
+      </section>
+
+      <section class="view" id="view-blotter">
+        <div class="page-heading"><div><p class="eyebrow">COMMUNITY SAFETY</p><h1>Complaints &amp; blotter</h1><p class="muted">Log incidents and track their resolution.</p></div><button class="button" type="button" data-action="quick-complaint"><i class="fa-solid fa-plus"></i> Log complaint</button></div>
+        <article class="panel"><div class="toolbar"><label class="search-field"><span><i class="fa-solid fa-magnifying-glass"></i></span><input id="blotter-search" type="search" placeholder="Search parties or summary"></label><label class="filter-control"><span>Status</span><select id="blotter-status"><option value="">All statuses</option><option>Pending</option><option>In Progress</option><option>Resolved</option></select></label><label class="filter-control"><span>Category</span><select id="blotter-category"><option value="">All categories</option><option>Dispute</option><option>Noise</option><option>Sanitation</option><option>Other</option></select></label></div><div class="table-wrap" id="blotter-table"></div></article>
+      </section>
+
+      <!-- Announcements View -->
+      <section class="view" id="view-announcements">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">COMMUNITY BULLETIN</p>
+            <h1>Announcements</h1>
+            <p class="muted">Publish and manage barangay notices.</p>
+          </div>
+          <button class="button" type="button" data-action="quick-announcement"><i class="fa-solid fa-plus"></i> New announcement</button>
+        </div>
+
+        <div class="announcement-layout">
+          <!-- Left: Publish Form (toggled when "+ New announcement" is clicked) -->
+          <article class="panel announcement-form-panel hidden" id="announcement-form-panel">
+            <div class="panel-heading announcement-form-header">
+              <div>
+                <h2 id="announcement-form-title">Publish an announcement</h2>
+                <p class="muted">Notices are sorted newest first.</p>
+              </div>
+              <button class="icon-button" id="announcement-form-close" type="button" aria-label="Close form">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <form id="announcement-form" class="form-grid" novalidate>
+              <input type="hidden" id="announcement-id">
+
+              <label class="field field-full">
+                <span>Title</span>
+                <input id="announcement-title" maxlength="100" placeholder="e.g. Community Clean-Up Drive" required>
+              </label>
+
+              <div class="form-row-2">
+                <label class="field">
+                  <span>Category</span>
+                  <select id="announcement-category">
+                    <option value="General">General</option>
+                    <option value="Health">Health</option>
+                    <option value="Advisory">Advisory</option>
+                    <option value="Emergency">Emergency</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>When (Date &amp; Time)</span>
+                  <input id="announcement-when" type="datetime-local">
+                </label>
+              </div>
+
+              <div class="form-row-2">
+                <label class="field">
+                  <span>Where</span>
+                  <input id="announcement-where" maxlength="80" placeholder="e.g. Barangay Covered Court">
+                </label>
+                <label class="field">
+                  <span>Requirements (Optional)</span>
+                  <input id="announcement-requirements" maxlength="80" placeholder="e.g. Valid ID, Vaccination Card">
+                </label>
+              </div>
+
+              <label class="field field-full">
+                <span>What / Message</span>
+                <textarea id="announcement-body" rows="4" placeholder="Full announcement details..." required></textarea>
+              </label>
+
+              <p class="form-error" id="announcement-error" role="alert"></p>
+
+              <div class="announcement-form-actions">
+                <button class="button" type="submit" id="announcement-submit">Publish notice</button>
+                <button class="button button-outline" type="button" id="announcement-cancel">Cancel</button>
+              </div>
+            </form>
+          </article>
+
+          <!-- Right: Published Notices List -->
+          <article class="panel announcements-list-panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Published notices</h2>
+                <p class="muted">Most recent first</p>
+              </div>
+            </div>
+            <div id="announcement-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-inventory">
+        <div class="page-heading"><div><p class="eyebrow">COMMUNITY ASSISTANCE</p><h1>Resource inventory</h1><p class="muted">Record deliveries and house distributions.</p></div></div>
+        <div class="inventory-forms">
+          <article class="panel">
+            <div class="panel-heading"><div><h2>Update stock</h2><p>Record a delivery or distribution.</p></div></div>
+            <form id="inventory-form" class="form-grid" novalidate>
+              <label class="field"><span>Item</span><select id="inventory-item"></select></label>
+              <label class="field"><span>Operation</span><select id="inventory-operation"><option value="in">Delivery (+)</option><option value="out">Distribution (−)</option></select></label>
+              <label class="field"><span>Quantity</span><input id="inventory-quantity" type="number" min="1" step="1" required></label>
+              <label class="field"><span>House number (for distribution)</span><input id="inventory-household" maxlength="60" placeholder="e.g. H-001"></label>
+              <div class="field-actions field-full"><button class="button" type="submit">Update stock</button><p class="form-error" id="inventory-error" role="alert"></p></div>
+            </form>
+          </article>
+          <article class="panel">
+            <div class="panel-heading"><div><h2>Add inventory item</h2><p>Start tracking a new resource.</p></div></div>
+            <form id="new-item-form" class="form-grid" novalidate>
+              <label class="field"><span>Item name</span><input id="new-item-name" maxlength="80" required></label>
+              <label class="field"><span>Unit</span><input id="new-item-unit" maxlength="24" placeholder="packs, kits, pcs"></label>
+              <label class="field"><span>Starting quantity</span><input id="new-item-quantity" type="number" min="0" step="1" required></label>
+              <div class="field-actions field-full"><button class="button button-secondary" type="submit">Add item</button><p class="form-error" id="new-item-error" role="alert"></p></div>
+            </form>
+          </article>
+        </div>
+        <article class="panel"><div class="panel-heading"><div><h2>Stock on hand</h2><p>Low stock alert below 15 units.</p></div></div><div class="table-wrap" id="inventory-table"></div></article>
+      </section>
+
+      <section class="view" id="view-lookup">
+        <div class="page-heading"><div><p class="eyebrow">SERVICE TRACKING</p><h1>Reference lookup</h1><p class="muted">Check the latest status of a document request or blotter entry.</p></div></div>
+        <article class="panel lookup-panel"><form id="lookup-form" class="lookup-form"><label class="field"><span>Reference number</span><input id="lookup-input" placeholder="DOC-2026-1048" autocomplete="off"></label><button class="button" type="submit">Find record</button></form><p class="helper-text">Enter a document request or incident reference, such as DOC-2026-1048, CPL-2026-2001, or BLT-2026-2001.</p><div id="lookup-result" aria-live="polite"></div></article>
+      </section>
+      <footer class="app-footer">Lucao Help Desk <span>•</span> loko ka boss</footer>
+    </main>
+  </div>
+
+  <dialog class="modal" id="record-dialog" aria-labelledby="dialog-title">
+    <form id="record-form" novalidate>
+      <div class="modal-header"><div><p class="eyebrow" id="dialog-eyebrow">RECORD MANAGEMENT</p><h2 id="dialog-title">Add resident</h2></div><button class="icon-button" id="dialog-close" type="button" aria-label="Close dialog"><i class="fa-solid fa-xmark"></i></button></div>
+      <div id="resident-fields" class="form-grid">
+        <label class="field field-full"><span>Full name</span><input id="resident-name" maxlength="100" autocomplete="name" placeholder="e.g. Juan P. Dela Cruz" required></label>
+        <label class="field"><span>Civil status</span><select id="resident-civil"><option>Single</option><option>Married</option><option>Widowed</option><option>Separated</option></select></label>
+        <label class="field"><span>Zone / Purok</span><input id="resident-purok" maxlength="60" placeholder="e.g. Purok 1 / Zone 1" required></label>
+        <label class="field"><span>House number</span><input id="resident-household" maxlength="40" placeholder="e.g. H-001" required></label>
+        <label class="field field-full"><span>Contact number</span><input id="resident-contact" type="tel" maxlength="16" placeholder="+63 912 345 6789" value="+63 " required></label>
+        <label class="field field-full"><span>Voter status</span><select id="resident-voter"><option>Registered</option><option>Not registered</option></select></label>
+      </div>
+
+      <div id="document-fields" class="form-grid hidden">
+        <label class="field field-full"><span>Resident name</span><input id="request-name" list="resident-options" maxlength="100"><datalist id="resident-options"></datalist></label>
+        <label class="field"><span>Document type</span><select id="request-type"><option>Barangay Clearance</option><option>Certificate of Residency</option><option>Certificate of Indigency</option></select></label>
+        <label class="field"><span>Purpose</span><input id="request-purpose" maxlength="200" placeholder="e.g. Employment, Scholarship, Medical aid" required></label>
+        
+        <label class="field field-full">
+          <span>Valid Government or School ID Type</span>
+          <select id="request-id-type" required>
+            <option value="" disabled selected>Select ID type to upload</option>
+            <option value="National ID (PhilSys)">National ID (PhilSys)</option>
+            <option value="Student ID / School ID">Student ID / School ID</option>
+            <option value="Driver's License">Driver's License</option>
+            <option value="Philippine Passport">Philippine Passport</option>
+            <option value="UMID">Unified Multi-Purpose ID (UMID)</option>
+            <option value="Postal ID">Postal ID</option>
+            <option value="Voter's ID / Certification">Voter's ID / Certification</option>
+            <option value="SSS / GSIS ID">SSS / GSIS ID</option>
+            <option value="Senior Citizen ID">Senior Citizen ID</option>
+            <option value="Barangay ID">Barangay ID</option>
+            <option value="Other Valid ID">Other Valid Government / School ID</option>
+          </select>
+        </label>
+
+        <div class="field field-full id-upload-section">
+          <div class="id-upload-header">
+            <span>Upload ID Images</span>
+            <small class="muted">Front &amp; back required &bull; Max 2MB each</small>
+          </div>
+          <div class="id-upload-grid">
+            <div class="id-upload-box">
+              <label class="id-upload-label" for="request-id-front">
+                <i class="fa-solid fa-id-card"></i>
+                <strong id="request-id-front-text">Upload ID (Front)</strong>
+                <small id="request-id-front-name">PNG, JPG, or WebP up to 2MB</small>
+              </label>
+              <input id="request-id-front" type="file" accept="image/png, image/jpeg, image/webp" hidden>
+              <button type="button" class="button button-secondary button-small id-preview-btn hidden" id="btn-view-front">
+                <i class="fa-solid fa-eye"></i> View uploaded file
+              </button>
+            </div>
+
+            <div class="id-upload-box">
+              <label class="id-upload-label" for="request-id-back">
+                <i class="fa-solid fa-id-card-clip"></i>
+                <strong id="request-id-back-text">Upload ID (Back)</strong>
+                <small id="request-id-back-name">PNG, JPG, or WebP up to 2MB</small>
+              </label>
+              <input id="request-id-back" type="file" accept="image/png, image/jpeg, image/webp" hidden>
+              <button type="button" class="button button-secondary button-small id-preview-btn hidden" id="btn-view-back">
+                <i class="fa-solid fa-eye"></i> View uploaded file
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="complaint-fields" class="form-grid hidden">
+        <label class="field">
+          <span>Record type</span>
+          <select id="complaint-type" required>
+            <option value="Complaint">Complaint (CPL)</option>
+            <option value="Blotter">Blotter (BLT)</option>
+          </select>
+        </label>
+        <label class="field"><span>Incident date</span><input id="complaint-date" type="date" required></label>
+        <label class="field"><span>Category</span><select id="complaint-category"><option>Dispute</option><option>Noise</option><option>Sanitation</option><option>Other</option></select></label>
+        <label class="field field-full"><span>Parties involved</span><input id="complaint-parties" maxlength="200" placeholder="e.g. Juan Dela Cruz vs. Pedro Reyes" required></label>
+        <label class="field field-full"><span>Incident summary</span><textarea id="complaint-summary" rows="4" maxlength="1200" placeholder="Summary of the incident or dispute..." required></textarea></label>
+      </div>
+      <p class="form-error" id="record-error" role="alert"></p><div class="modal-actions"><button class="button button-quiet" id="dialog-cancel" type="button">Cancel</button><button class="button" id="dialog-submit" type="submit">Save resident</button></div>
+    </form>
+  </dialog>
+
+  <!-- Announcement Full Details Modal -->
+  <dialog class="modal" id="announcement-modal" aria-labelledby="announcement-detail-title">
+    <div class="modal-header">
+      <div>
+        <p class="eyebrow" id="announcement-detail-category">COMMUNITY BULLETIN</p>
+        <h2 id="announcement-detail-title">Announcement details</h2>
+      </div>
+      <button class="icon-button" id="announcement-modal-close" type="button" aria-label="Close dialog"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="announcement-modal-body">
+      <div class="announcement-meta-bar">
+        <span class="category-tag" id="announcement-detail-tag"></span>
+        <span class="announcement-date-text" id="announcement-detail-date"><i class="fa-regular fa-calendar"></i> <span></span></span>
+      </div>
+      <div id="announcement-detail-extra" class="announcement-detail-extra"></div>
+      <p id="announcement-detail-body" class="announcement-modal-text"></p>
+    </div>
+    <div class="modal-actions">
+      <button class="button button-quiet" id="announcement-modal-dismiss" type="button">Close</button>
+    </div>
+  </dialog>
+
+  <!-- Attachment Viewer Modal -->
+  <dialog class="modal id-viewer-modal" id="id-viewer-modal" aria-labelledby="id-viewer-title">
+    <div class="modal-header">
+      <div>
+        <p class="eyebrow">ATTACHMENT PREVIEW</p>
+        <h2 id="id-viewer-title">Uploaded ID</h2>
+      </div>
+      <button class="icon-button" id="id-viewer-close" type="button" aria-label="Close dialog" data-action="close-id-viewer"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="id-viewer-nav" id="id-viewer-nav">
+      <button type="button" class="button button-quiet button-small active" id="id-view-front-tab">Front ID</button>
+      <button type="button" class="button button-quiet button-small" id="id-view-back-tab">Back ID</button>
+    </div>
+    <div class="id-viewer-body">
+      <img id="id-viewer-img" src="" alt="Uploaded ID preview" class="id-viewer-image">
+      <p id="id-viewer-empty" class="empty-state hidden">No image uploaded for this side.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="button button-quiet" id="id-viewer-dismiss" type="button" data-action="close-id-viewer">Close</button>
+    </div>
+  </dialog>
+
+  <!-- Address Dialog Modal (Official Access Only) -->
+  <dialog class="modal" id="address-dialog" aria-labelledby="address-dialog-title">
+    <div class="modal-header">
+      <div>
+        <p class="eyebrow">RESIDENT REGISTRY</p>
+        <h2 id="address-dialog-title">Resident Address</h2>
+      </div>
+      <button class="icon-button" id="address-dialog-close" type="button" aria-label="Close dialog"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="confirm-modal-body">
+      <div class="address-details-box">
+        <p><strong>Resident:</strong> <span id="address-modal-name"></span></p>
+        <p><strong>Purok / Zone:</strong> <span id="address-modal-purok"></span></p>
+        <p><strong>House number:</strong> <span id="address-modal-household"></span></p>
+        <p><strong>Address:</strong> <span id="address-modal-text"></span></p>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="button button-quiet" id="address-dialog-dismiss" type="button">Close</button>
+    </div>
+  </dialog>
+
+  <!-- Confirmation Dialog Modal -->
+  <dialog class="modal confirm-modal" id="confirm-dialog" aria-labelledby="confirm-dialog-title">
+    <div class="modal-header">
+      <div>
+        <p class="eyebrow" id="confirm-dialog-eyebrow">CONFIRM ACTION</p>
+        <h2 id="confirm-dialog-title">Remove request</h2>
+      </div>
+      <button class="icon-button" id="confirm-dialog-close" type="button" aria-label="Close dialog"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="confirm-modal-body">
+      <p id="confirm-dialog-message">Are you sure? This action cannot be undone.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="button button-quiet" id="confirm-dialog-cancel" type="button">Cancel</button>
+      <button class="button button-danger" id="confirm-dialog-confirm" type="button">Remove</button>
+    </div>
+  </dialog>
+
+  <dialog class="modal backup-modal" id="backup-dialog" aria-labelledby="backup-title"><div class="modal-header"><div><p class="eyebrow">DATA PORTABILITY</p><h2 id="backup-title">Back up your data</h2></div><button class="icon-button" id="backup-close" type="button" aria-label="Close dialog"><i class="fa-solid fa-xmark"></i></button></div><p class="muted" id="backup-description">Download a JSON copy of the records saved in this browser.</p><textarea id="backup-text" class="backup-text" spellcheck="false" aria-label="Backup JSON"></textarea><div class="backup-actions"><label class="button button-secondary file-button">Choose JSON file<input id="restore-file" type="file" accept=".json,application/json" hidden></label><button class="button button-secondary" id="download-backup" type="button">Download backup</button><button class="button button-quiet" id="restore-backup" type="button">Restore from text</button></div><p class="form-error" id="backup-error" role="alert"></p></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
